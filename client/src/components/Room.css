@@ -1,0 +1,8 @@
+.Room {
+    background-image: url("../images/batcave.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width:80%;
+    min-height:500px;
+    margin: 0.8rem 0;
+}
