@@ -16,7 +16,9 @@ class Room extends Component{
     }
     render(){
         return (
-            <div className="Room" onClick={this.renderRedirect}></div>
+            <div className="Room" onClick={this.renderRedirect}>
+                <div className="Room-title">{this.props.name}</div>
+            </div>
         )
     }
 }

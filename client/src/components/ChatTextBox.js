@@ -21,7 +21,6 @@ export default class ChatTextBox extends Component {
         <div>
             <form onSubmit={this.handleSubmit}>
             <input type="text" name="message" value={this.state.message} onChange={this.handleChange} />
-            
             <input type="submit" value="send" />
             </form> 
         </div>
