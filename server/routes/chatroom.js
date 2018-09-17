@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router({mergeParams: true});
 
-const {createRoom, getRoom, updateRoom, deleteRoom} = require("../handlers/chatroom");
+const {createRoom, getRooms, getRoom, updateRoom, deleteRoom} = require("../handlers/chatroom");
 
-router.route("/").post(createRoom);
+router.route("/")
+    .get(getRooms)
+    .post(createRoom);
 
 router.route("/:room_id")
     .get(getRoom)
