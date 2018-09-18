@@ -8,6 +8,8 @@ const errorHandler = require("./handlers/error");
 const authRoutes = require("./routes/auth");
 const roomRoutes = require("./routes/chatroom");
 const messageRoutes = require("./routes/messages");
+//middleware
+const {loginRequired, ensureCorrectUser} = require("./middleware/auth");
 
 //allow cross origin 
 app.use(cors());
@@ -17,9 +19,18 @@ app.use(bodyParser.json());
 //auth route (signin,signup)
 app.use("/api/user/", authRoutes);
 //room route
-app.use("/api/user/:user_id/room/", roomRoutes);
+app.use("/api/user/:user_id/room/",
+    loginRequired,
+    ensureCorrectUser,
+    roomRoutes);
+
 // messages route
-app.use("/api/user/:user_id/room/:room_id/messages/", messageRoutes);
+app.use("/api/user/:user_id/room/:room_id/messages/",
+    loginRequired,
+    ensureCorrectUser,
+    messageRoutes);
+
+
 
 app.use(function(req, res, next) {
     let err = new Error("Not Found");

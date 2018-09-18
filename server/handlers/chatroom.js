@@ -48,9 +48,18 @@ module.exports.getRoom = async function(req, res, next){
     }
 }
 module.exports.updateRoom = function(req, res, next){
-
+//more work with this like updating name, users list
 }
 
-module.exports.deleteRoom = function(req, res, next){
-
+module.exports.deleteRoom = async function(req, res, next){
+    try {
+        let foundRoom = await db.Room.findById(req.params.room_id);
+        await foundRoom.remove();
+        return res.status(200).json(foundRoom);
+    } catch(err) {
+        return next({
+            status: 400,
+            message: err.message
+        });
+    }
 }
