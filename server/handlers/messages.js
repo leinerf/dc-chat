@@ -1,42 +1,33 @@
-const backend = {
-    watchtower: {
-        message:[]
-    },
-    batcave: {
-        message:[]
-    },
-    titanstower: {
-        message:[]
-    },
-    fortressofsolitude: {
-        message:[]
-    },
-    atlantis: {
-        message:[]
+const db = require("../models")
+module.exports.getMessages = async function(req, res, next) {
+    try{
+        let messages = await db.Message.find({room: req.params.room_id})
+        return res.status(200).json({messages: messages})
+    } catch(err) {
+        return next(err);
+    }
+    
+}
+
+module.exports.postMessage = async function(req, res, next) {
+    try{
+        let message = await db.Message.create(req.body);
+        return res.status(200).json(message)
+    } catch(err) {
+        return next(err);
     }
 }
 
-
-exports.getMessages = function(req, res, next) {
-    console.log(req.params.room_id);
-    //find all messages within a certain room
-    //return them
-    res.status(200).json({message: "getMessages"})
-}
-
-exports.postMessage = function(req, res, next) {
-    //get data from req.body
-    //create a message with the data
-    //save it to database
-    //respond to the request
-}
-
-exports.updateMessage = function(req, res, next) {
+module.exports.updateMessage = function(req, res, next) {
     res.status(200).json({message: "updateMessage"})
 }
 
-exports.deleteMessage = function(req, res, next) {
-    console.log(req.params.room_id);
-    console.log(req.params.message_id);
-    res.status(200).json({message: "deleteMessage"})
+module.exports.deleteMessage = async function(req, res, next) {
+    try {
+        let foundMessage = await db.Message.find({_id: req.params.message_id})
+        await foundMessage.remove();
+        return res.status(200).json({foundMessage: foundMessage, message: "message deleted"});
+    } catch(err) {
+        return next(err);
+    }
 }
