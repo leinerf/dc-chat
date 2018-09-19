@@ -1,8 +1,6 @@
 import React, {Component} from "react";
-import { withRouter } from 'react-router-dom';
 import "./Room.css";
-import {Redirect} from "react-router-dom"
-class Room extends Component{
+export default class Room extends Component{
     constructor(props){
         super(props);
         
@@ -23,4 +21,3 @@ class Room extends Component{
     }
 }
 
-export default withRouter(Room)
